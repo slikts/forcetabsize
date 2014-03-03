@@ -3,15 +3,17 @@ var cache = [],
     nbsp = '&nbsp;',
     middot = '&middot;',
     disabledClassName = '__forcetabsize_disabled__',
-    addedTabClassName = '',
+    addedTabClassName = '__forcetabsize__',
     bodyClassList = document.body.classList,
     disable = bodyClassList.add.bind(bodyClassList, disabledClassName);
 
 function enable() {
     bodyClassList.remove(disabledClassName);
+    // Forcing size in case it didn't work before for some reason
     forceSize();
 }
 
+// Get the tab size setting from extension's localStorage
 chrome.runtime.sendMessage({
     method: 'getTabSize'
 }, function(response) {
@@ -19,6 +21,7 @@ chrome.runtime.sendMessage({
     forceSize();
 });
 
+// Counts leading instances of a substring
 function count(str, x) {
     var i = 0,
             len = x.length;
@@ -33,13 +36,12 @@ function count(str, x) {
 function forceSize() {
     Array.prototype.forEach.call(document.getElementsByClassName('code-body'),
         function(codeEl) {
+            // Skip previously processed elemenets
             if (~cache.indexOf(codeEl)) {
                 return;
             }
-            //console.log('forceSize', forcedTabSize, codeEl);
 
             cache.push(codeEl);
-            var i = 0;
 
             codeEl.style.tabSize = forcedTabSize;
 
@@ -53,6 +55,7 @@ function forceSize() {
                     }
                     if (!tabSize) {
                         if (/\s+\*/.test(html)) {
+                            // This probably is a comment line so skip it
                             return true;
                         }
                         tabSize = spaces;
@@ -64,11 +67,10 @@ function forceSize() {
                     if (spaces === forcedTabSize * level) {
                         return false;
                     }
-                    lineEl.innerHTML = '<span class="__forcetabsize__">' +
+                    lineEl.innerHTML = '<span class="' + addedTabClassName + '">' +
                             Array(spaces / tabSize * forcedTabSize - spaces + 1).join(middot) +
                             '</span>' + html;
 
-                    i += 1;
                     return true;
                 });
         });
