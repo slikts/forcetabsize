@@ -1,0 +1,6 @@
+.__forcetabsize__ {
+    visibility: hidden;
+}
+.__forcetabsize_disabled__ .__forcetabsize__ {
+    display: none;
+}
