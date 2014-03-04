@@ -4,7 +4,7 @@ This is a Chrome extension that attempts to normalize the indentation level
 in GitHub's code viewer. It assumes that the first indented non-comment line 
 is at the first level of indentation and adjusts the indentation accordingly. 
 It also applies `tab-size` CSS to the code viewer. The changes in tab size 
-can be turned off with a page action button. The extenion doesn't affect 
+can be turned off with a page action button. The extention doesn't affect
 any other workings of GitHub.
 
 Note: Reducing the number or spaces is not yet supported, it only adds spaces
