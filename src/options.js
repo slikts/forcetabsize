@@ -17,7 +17,6 @@ chrome.runtime.sendMessage({method: 'syncTabSize'}, function() {
     });
 });
 
-
 gebi('submit').addEventListener('click', save);
 gebi('reset').addEventListener('click', reset);
 
@@ -26,6 +25,7 @@ function init() {
 }
 
 function showMessage(text) {
+    chrome.runtime.sendMessage({method: 'syncTabSize'});
     message.innerText = text;
     window.clearTimeout(timeout);
     timeout = window.setTimeout(showMessage.bind(null, ''), 2500);
