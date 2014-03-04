@@ -1,3 +1,5 @@
+'use strict';
+
 var storage = localStorage,
     gebi = document.getElementById.bind(document),
     defaultSize = 4,
