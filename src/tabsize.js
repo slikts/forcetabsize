@@ -45,6 +45,8 @@ function forceSize() {
 
             cache.push(codeEl);
 
+            // Set the CSS in case the code uses tabs instead of spaces
+            // TODO: set this for the entire page
             codeEl.style.tabSize = forcedTabSize;
 
             var tabSize = 0;
@@ -60,13 +62,16 @@ function forceSize() {
                             // This probably is a comment line so skip it
                             return true;
                         }
+                        // Assume the first indented non-comment line shows a single level of indentation
                         tabSize = spaces;
                     }
                     var level = spaces / tabSize;
                     if (Math.round(level) !== level) {
+                        // Something is wrong, the levels should always be round
                         return true;
                     }
                     if (spaces === forcedTabSize * level) {
+                        // The code seems to already have the preferred indentation
                         return false;
                     }
                     lineEl.innerHTML = '<span class="' + addedTabClassName + '">' +

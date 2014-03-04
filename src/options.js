@@ -2,15 +2,23 @@
 
 var storage = localStorage,
     gebi = document.getElementById.bind(document),
-    defaultSize = 4,
     input = gebi('tabsize'),
     message = gebi('message'),
     timeout = null;
+    
+chrome.runtime.sendMessage({
+    method: 'getTabSize'
+}, function(response) {
+    tabSize = response.tabSize;
+    init();
+});
 
 gebi('submit').addEventListener('click', save);
 gebi('reset').addEventListener('click', reset);
 
-input.value = storage.tabSize || defaultSize;
+function init() {
+    input.value = tabSize;
+}
 
 function showMessage(text) {
     message.innerText = text;
