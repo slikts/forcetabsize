@@ -14,11 +14,11 @@ Install at [Chrome Web Store](https://chrome.google.com/webstore/detail/github-f
 
 ## Changelog
 
-**0.1.1**: 2014-03-04
+**0.1.1** (2014-03-04)
 
  * Using `chrome.storage.sync` instead of `localStorage`
 
-**0.1.0**: 2014-03-03
+**0.1.0** (2014-03-03)
 
  * Initial release
 
