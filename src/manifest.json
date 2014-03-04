@@ -1,7 +1,7 @@
 {
     "name": "github-forcetabsize",
     "description": "Force a custom tab size in GitHub code viewer.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "author": "slikts <dabas@untu.ms",
     "homepage_url": "https://github.com/slikts/forcetabsize",
     "icons": {
@@ -13,7 +13,8 @@
         "https://*.github.com/",
         "tabs",
         "webNavigation",
-        "declarativeContent"
+        "declarativeContent",
+        "storage"
     ],
     "background": {
         "scripts": ["background.js"],

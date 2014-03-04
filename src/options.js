@@ -1,17 +1,22 @@
 'use strict';
 
-var storage = localStorage,
-    gebi = document.getElementById.bind(document),
-    input = gebi('tabsize'),
-    message = gebi('message'),
-    timeout = null;
-    
-chrome.runtime.sendMessage({
-    method: 'getTabSize'
-}, function(response) {
-    tabSize = response.tabSize;
-    init();
+var storage = chrome.storage.sync,
+        gebi = document.getElementById.bind(document),
+        input = gebi('tabsize'),
+        message = gebi('message'),
+        timeout = null,
+        tabSize,
+        defaultSize;
+
+chrome.runtime.sendMessage({method: 'syncTabSize'}, function() {
+    chrome.runtime.sendMessage({method: 'getTabSize'},
+    function(response) {
+        tabSize = response.tabSize;
+        defaultSize = response.defaultSize;
+        init();
+    });
 });
+
 
 gebi('submit').addEventListener('click', save);
 gebi('reset').addEventListener('click', reset);
@@ -33,13 +38,15 @@ function save() {
     }
     input.value = value;
     if (value !== defaultSize) {
-        storage.tabSize = value;
+        storage.set({
+            'tabSize': value
+        }, showMessage.bind(null, 'Tab size saved'));
     }
-    showMessage('Tab size saved');
 }
 
 function reset() {
-    storage.removeItem('tabSize');
-    input.value = defaultSize;
-    showMessage('Tab size reset');
+    storage.remove('tabSize', function() {
+        showMessage('Tab size reset');
+        input.value = defaultSize;
+    });
 }

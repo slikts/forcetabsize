@@ -17,7 +17,9 @@ chrome.runtime.onInstalled.addListener(function() {
     });
 });
 
-var state = {};
+var state = {},
+        tabSize = null,
+        defaultSize = 4;
 
 chrome.pageAction.onClicked.addListener(function(tab) {
     var disabled = state[tab.id] = !state[tab.id];
@@ -40,7 +42,16 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    sendResponse(request.method === 'getTabSize' ? {
-        tabSize: localStorage.tabSize || 4
-    } : {});
+    if (request.method === 'syncTabSize') {
+        tabSize = null;
+        chrome.storage.sync.get('tabSize', function(obj) {
+            tabSize = obj.tabSize;
+        });
+        sendResponse({});
+    } else if (request.method === 'getTabSize') {
+        sendResponse({
+            tabSize: tabSize || defaultSize,
+            defaultSize: defaultSize
+        });
+    }
 });
