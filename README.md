@@ -1,4 +1,4 @@
-#github-forcetabsize
+#GitHub-ForceTabSize
 
 This is a Chrome extension that attempts to normalize the indentation level 
 in GitHub's code viewer regardless if tabs or spaces are used.
