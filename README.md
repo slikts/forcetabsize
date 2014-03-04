@@ -12,7 +12,7 @@ or changes tab size.
 
 ### Installation
 
-Install at [Chrome Web Store](https://chrome.google.com/webstore/detail/github-forcetabsize/djgjbkiceplcmddchilbonmgmfdjbafc)
+Install at [Chrome Web Store](https://chrome.google.com/webstore/detail/github-forcetabsize/djgjbkiceplcmddchilbonmgmfdjbafc).
 
 ### Changelog
 
